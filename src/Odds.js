@@ -9,10 +9,10 @@ export default function Odds({ card, cards }) {
   }, [cards]);
 
   const calculateOdds = () => {
-    const hO = (
+    const lO = (
       cards.slice(0, cards.indexOf(card)).length / cards.length
     ).toFixed(2);
-    const lO = (
+    const hO = (
       cards.slice(cards.indexOf(card), cards[cards.length - 1]).length /
       cards.length
     ).toFixed(2);
@@ -23,8 +23,8 @@ export default function Odds({ card, cards }) {
   console.log(cards.slice(0, cards.indexOf(card)).length / cards.length);
   return (
     <div className="odds">
-      <p>{higherOdds} higher odds</p>
-      <p>{lowerOdds} lower odds</p>
+      <p className="higher-odds">{higherOdds} higher odds</p>
+      <p className="lower-odds">{lowerOdds} lower odds</p>
     </div>
   );
 }
