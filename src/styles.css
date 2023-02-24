@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info {
+  text-align: center;
+}
+
+.gameInfo {
+  font-size: 75px;
+  font-weight: 200;
+}
+
+h1 span {
+  font-size: 102px;
+  font-weight: 500;
+}
+
+.winner {
+  animation-name: win;
+  animation-duration: 3s;
+}
+
+.loser {
+  animation-name: lose;
+  animation-duration: 3s;
+}
+
+@keyframes win {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: green;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+@keyframes lose {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+.gameButtons {
+  margin: 1rem;
+}
