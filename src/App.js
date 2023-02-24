@@ -1,5 +1,6 @@
 import "./styles.css";
 import { useState, useEffect, useRef } from "react";
+import Odds from "./Odds";
 
 export default function App() {
   const cardSpolight = useRef();
@@ -41,10 +42,10 @@ export default function App() {
 
   const game = (e) => {
     if (gameState && e.target.className === "higher") {
-      return handleHigherClick();
+      return click("higher");
     }
     if (gameState && e.target.className === "lower") {
-      return handleLowerClick();
+      return click("lower");
     }
   };
 
@@ -54,47 +55,41 @@ export default function App() {
     setGameInfo("New game");
   };
 
-  const handleHigherClick = () => {
+  const click = (choice) => {
     const randomCard = generateCard();
+    setCard(randomCard);
     if (cards.indexOf(card) < cards.indexOf(randomCard)) {
-      setGameInfo(
-        `${String.fromCodePoint(
-          randomCard
-        )} is higher than ${String.fromCodePoint(card)}, continue game`
-      );
-      setCard(randomCard);
-    } else if (cards.indexOf(card) === cards.indexOf(randomCard)) {
-      setGameInfo("Draw");
+      if (choice === "higher") {
+        setGameInfo(
+          `${String.fromCodePoint(
+            randomCard
+          )} is higher than ${String.fromCodePoint(card)}, continue game`
+        );
+      } else {
+        setGameInfo(
+          `${String.fromCodePoint(
+            randomCard
+          )} is higher than ${String.fromCodePoint(card)}, you lost`
+        );
+        setGameState(false);
+      }
+    } else if (cards.indexOf(card) > cards.indexOf(randomCard)) {
+      if (choice === "higher") {
+        setGameInfo(
+          `${String.fromCodePoint(
+            randomCard
+          )} is higher than ${String.fromCodePoint(card)}, you lost`
+        );
+        setGameState(false);
+      } else {
+        setGameInfo(
+          `${String.fromCodePoint(
+            randomCard
+          )} is lower than ${String.fromCodePoint(card)}, continue game`
+        );
+      }
     } else {
-      setGameInfo(
-        `${String.fromCodePoint(
-          randomCard
-        )} is lower than ${String.fromCodePoint(card)}, you lost`
-      );
-      setCard(randomCard);
-      setGameState(false);
-    }
-  };
-
-  const handleLowerClick = () => {
-    const randomCard = generateCard();
-    if (cards.indexOf(card) > cards.indexOf(randomCard)) {
-      setGameInfo(
-        `${String.fromCodePoint(
-          randomCard
-        )} is lower than ${String.fromCodePoint(card)}, continue game`
-      );
-      setCard(randomCard);
-    } else if (cards.indexOf(card) === cards.indexOf(randomCard)) {
       setGameInfo("Draw");
-    } else {
-      setGameInfo(
-        `${String.fromCodePoint(
-          randomCard
-        )} is higher than ${String.fromCodePoint(card)}, you lost`
-      );
-      setCard(randomCard);
-      setGameState(false);
     }
   };
 
@@ -116,6 +111,7 @@ export default function App() {
           Lower
         </button>
       </div>
+      <Odds card={card} cards={cards} />
       <div className={"restart"}>
         <button onClick={() => restartGame()}>Restart</button>
       </div>
